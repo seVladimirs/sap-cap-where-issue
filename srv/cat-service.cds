@@ -10,8 +10,8 @@ service CatalogService {
 }
 
 /**
- * Works, but not what I need - Return alice when I do a
- * request as bob
+ * Works, but not what I need Return alice when I do a request
+ * as bob
  */
 @requires : 'authenticated-user'
 service CatalogWorkingHardcodedService {
@@ -26,4 +26,11 @@ service CatalogWorkingHardcodedService {
 service CatalogWorkingWithRestrictService {
     @readonly
     entity Books @(restrict : [{where : 'user = $user'}]) as projection on my.Books;
+}
+
+
+@requires : 'authenticated-user'
+service TaskService {
+    @readonly
+    entity Tasks @(restrict : [{where : 'user.user = $user'}]) as projection on my.Tasks;
 }
